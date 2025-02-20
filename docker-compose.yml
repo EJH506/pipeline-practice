@@ -1,0 +1,29 @@
+version: '3'
+services:
+  testapp: # Docker Hub 에서 푸시한 이미지를 사용하여 애플리케이션 컨테이너를 실행
+    image: jihye0/testapp:latest
+    container_name: testapp-container
+    ports:
+      - "8080:8080"
+#    environment:
+#      SPRING_PROFILES_ACTIVE: production
+    depends_on: # MySQL 컨테이너가 먼저 시작되도록 설정
+      - mysql
+
+  mysql: # MySQL 컨테이너를 설정하고, rootpassword와 database를 환경변수로 지정
+    image: mysql:8
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./my.cnf:/etc/mysql/my.cnf  # my.cnf 파일을 마운트
+      - /home/ubuntu/mysql_data:/var/lib/mysql  # 데이터 디렉토리 마운트
+    restart: always  # EC2 재부팅 시 MySQL 자동 재시작
+
+volumes:
+  jenkins_home:
+  mysql-data:
+

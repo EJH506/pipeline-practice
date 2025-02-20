@@ -1,0 +1,1 @@
+INSERT INTO test (word) VALUES ("hello, 지혜");
