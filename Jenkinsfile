@@ -12,7 +12,7 @@ pipeline {
         FLYWAY_URL = 'jdbc:mysql://mysql:3306/test' // MySQL DB URL
         FLYWAY_USER = 'root' // MySQL DB 사용자
         FLYWAY_PASSWORD = credentials('flyway-db-password') // MySQL DB 비밀번호
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-username')  // DockerHub 로그인 정보
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')  // DockerHub 로그인 정보
     }
 
     stages {
