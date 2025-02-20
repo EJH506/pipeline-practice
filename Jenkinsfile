@@ -19,7 +19,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Git에서 최신 코드를 체크아웃합니다.
-                git branch: 'main', url: 'https://github.com/EJH506/pipeline-practice.git'
+                git branch: 'master', url: 'https://github.com/EJH506/pipeline-practice.git'
             }
         }
 
@@ -49,12 +49,8 @@ pipeline {
                 script {
                     // SSH를 통해 EC2 서버에 접속하여 배포 작업을 수행합니다.
                     sh """
-                    # 프로젝트 파일을 EC2로 전송
-                    scp -i ${SSH_KEY_PATH} -r ./demo ${EC2_SSH_USER}@${AWS_EC2_INSTANCE}:/home/ubuntu/demo
-
                     # EC2에 접속해 배포 수행
                     ssh -i ${SSH_KEY_PATH} ${EC2_SSH_USER}@${AWS_EC2_INSTANCE} <<EOF
-                        cd /home/ubuntu/demo  # 애플리케이션 디렉토리로 이동
 
                         # Docker Compose로 애플리케이션과 MySQL 컨테이너를 실행
                         docker-compose pull
